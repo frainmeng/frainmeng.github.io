@@ -4,6 +4,429 @@
   
     
     <entry>
+      <title><![CDATA[Git 常用命令及使用说明]]></title>
+      <url>http://frainmeng.github.io/2015/10/29/Git-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
+      <content type="html"><![CDATA[<h3 id="配置命令config">配置命令<code>config</code></h3><ol>
+<li><p>说明</p>
+<p>用于配置本机git的相关属性</p>
+</li>
+<li><p>语法</p>
+<pre><code>git config <span class="string">[选项]</span> 属性名 属性值
+</code></pre></li>
+<li><p>选项</p>
+<ul>
+<li><code>--global</code> ：表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址</li>
+<li><code>--list</code>：查看所有配置信息  </li>
+</ul>
+</li>
+<li><p>示例</p>
+<pre><code><span class="preprocessor">#设置你的名字和email地址</span>
+$ git config --<span class="keyword">global</span> user.name <span class="string">"Your Name
+$ git config --global user.email "</span>email<span class="constant">@example</span>.com<span class="string">"</span>
+</code></pre></li>
+</ol>
+<h3 id="cd命令"><code>cd</code>命令</h3><ol>
+<li><p>说明</p>
+<p>转换当前目录（类似于linux中的cd命令）</p>
+</li>
+<li><p>语法</p>
+<pre><code><span class="built_in">cd</span> 目录名（包括相对目录和觉得目录）
+</code></pre></li>
+<li><p>选项</p>
+<p>无</p>
+</li>
+<li><p>示例</p>
+<pre><code><span class="keyword">cd</span> /<span class="keyword">d</span>/git_repository
+</code></pre></li>
+</ol>
+<h3 id="mkdir命令"><code>mkdir</code>命令</h3><ol>
+<li><p>说明</p>
+<p>类似linux中的mkdir命令，创建目录</p>
+</li>
+<li><p>语法</p>
+<p>略</p>
+</li>
+<li><p>选项</p>
+<p>略</p>
+</li>
+<li><p>示例</p>
+<pre><code><span class="built_in">mkdir</span> testdir
+</code></pre></li>
+</ol>
+<h3 id="pwd"><code>pwd</code></h3><ol>
+<li><p>说明</p>
+<p>类似linux</p>
+</li>
+</ol>
+<h3 id="init命令"><code>init</code>命令</h3><ol>
+<li><p>说明</p>
+<p>将当前目录变成Git可以管理的仓库</p>
+</li>
+<li><p>语法</p>
+<pre><code><span class="title">git</span> init
+</code></pre></li>
+<li><p>选项</p>
+<p>略</p>
+</li>
+<li><p>示例</p>
+<p>略</p>
+</li>
+</ol>
+<h3 id="add命令"><code>add</code>命令</h3><ol>
+<li><p>说明</p>
+<p>提交的所有修改放到暂存区</p>
+</li>
+<li><p>语法</p>
+<pre><code>git <span class="built_in">add</span> <span class="built_in">file</span>
+</code></pre></li>
+<li><p>选项</p>
+<p>略</p>
+</li>
+<li><p>示例</p>
+<pre><code><span class="label">git</span> <span class="keyword">add </span>readme.txt
+</code></pre></li>
+</ol>
+<h3 id="commit"><code>commit</code></h3><ol>
+<li><p>说明</p>
+<p>暂存区的所有修改提交到分支</p>
+</li>
+<li><p>语法</p>
+<pre><code>git commit <span class="string">[选项]</span>
+</code></pre></li>
+<li><p>选项</p>
+<ul>
+<li><code>-m</code>：为本次添加说明</li>
+<li><code>-a</code>：相当于执行先执行add再执行commit</li>
+</ul>
+</li>
+<li><p>示例</p>
+<pre><code>git <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"add readme file"</span></span>
+</code></pre></li>
+</ol>
+<h3 id="status命令"><code>status</code>命令</h3><ol>
+<li><p>说明</p>
+<p>查看修改的文件</p>
+</li>
+<li><p>语法</p>
+<p>git status</p>
+</li>
+<li><p>选项</p>
+<p>略</p>
+</li>
+<li><p>示例</p>
+<pre><code>git <span class="keyword">status</span>
+</code></pre></li>
+</ol>
+<h3 id="diff命令"><code>diff</code>命令</h3><ol>
+<li><p>说明</p>
+<p>比较文件修改内容</p>
+</li>
+<li><p>语法</p>
+<pre><code>git  diff <span class="type">file</span> 
+</code></pre></li>
+<li><p>选项</p>
+<p>略</p>
+</li>
+<li><p>示例</p>
+<pre><code><span class="tag">git</span> <span class="tag">diff</span> <span class="tag">readme</span><span class="class">.txt</span>
+</code></pre></li>
+</ol>
+<h3 id="log命令"><code>log</code>命令</h3><ol>
+<li><p>说明</p>
+<p>查看历史记录</p>
+</li>
+<li><p>语法</p>
+<pre><code>git <span class="command">log</span>
+</code></pre></li>
+<li><p>选项</p>
+<ul>
+<li><code>--pretty=oneline</code>：显示commit_id（长） + 提交时的说明</li>
+<li><code>--graph</code>：显示分支信息</li>
+<li><code>--abbrev-commit</code>：显示commit_id + 提交说明</li>
+<li><code>-num</code>：num表示数字，查看最近提交</li>
+</ul>
+</li>
+<li><p>示例</p>
+<pre><code><span class="comment">##查看日志</span>
+git <span class="command">log</span> 
+<span class="comment">##查看日志，显示commit_id content</span>
+git <span class="command">log</span> <span class="comment">--pretty=oneline</span>
+<span class="comment">##查看日志，显示commit_id content，并显示分支提交信息</span>
+git <span class="command">log</span> <span class="comment">--graph --pretty=oneline --abbrev-commit</span>
+<span class="comment">##查看最近一次提交</span>
+git <span class="command">log</span> <span class="comment">--graph --pretty=oneline --abbrev-commit -1</span>
+<span class="comment">##不说了，查看日志用这个就够了</span>
+git <span class="command">log</span> <span class="comment">--color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit</span>
+</code></pre></li>
+</ol>
+<h3 id="reset版本回退命令"><code>reset</code>版本回退命令</h3><ol>
+<li><p>说明</p>
+<p>将文件的版本回退到以前的版本</p>
+</li>
+<li><p>语法</p>
+<pre><code>git reset [选项] [HEAD^ <span class="literal">or</span> commit_id]
+
+<span class="escape">`H</span>EAD<span class="escape">`表</span>示当前版本，<span class="escape">`H</span>EAD^<span class="escape">`表</span>示上一个版本，<span class="escape">`H</span>EAD^^<span class="escape">`表</span>示上上个版本，一次类推，也可以使用<span class="escape">`H</span>EAD~n<span class="escape">`表</span>示上n个版本
+其中commit_id为每次提交时生成的id，该id会在每次提交时显示也可以使用<span class="escape">`r</span>eflog<span class="escape">`命</span>令来查看
+</code></pre></li>
+<li><p>选项</p>
+<ul>
+<li><code>--hard</code> ：略 </li>
+</ul>
+</li>
+<li><p>示例</p>
+<pre><code>##退回到上上个版本
+git <span class="operator"><span class="keyword">reset</span> <span class="comment">--hard HEAD^^</span>
+##把暂存区的<span class="keyword">file</span>的修改撤销掉（unstage），重新放回工作区
+git <span class="keyword">reset</span> <span class="keyword">HEAD</span> <span class="keyword">file</span></span>
+</code></pre></li>
+</ol>
+<h3 id="reflog"><code>reflog</code></h3><ol>
+<li><p>说明</p>
+<p>显示你的历史命令</p>
+</li>
+<li><p>语法</p>
+<pre><code><span class="title">git</span> reflog
+</code></pre></li>
+<li><p>选项</p>
+<p>略</p>
+</li>
+<li><p>示例</p>
+<pre><code><span class="title">git</span> reflog
+</code></pre></li>
+</ol>
+<h3 id="checkout"><code>checkout</code></h3><ol>
+<li><p>说明</p>
+<ul>
+<li>用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”</li>
+<li>从版本库中检出文件或分支</li>
+<li>切换分支</li>
+</ul>
+</li>
+<li><p>语法</p>
+<pre><code>git checkout <span class="string">[选项]</span> <span class="string">[file or 分支名称]</span> <span class="string">[远程分支名称]</span>
+</code></pre></li>
+<li><p>选项</p>
+<pre><code>*   <span class="escape">`-</span>-<span class="escape">`：</span>不切换到另一个分支
+*   <span class="escape">`-</span>b<span class="escape">`：</span>创建并切换分支    
+    相当于如下两个命令：
+
+        git branch dev
+        git checkout dev
+</code></pre></li>
+<li><p>示例</p>
+<pre><code><span class="preprocessor">##从版本库中检出文件覆盖到工作区</span>
+git checkout -- git常用命令.enmd
+<span class="preprocessor">##从主分支中创建并切换分支</span>
+git checkout -b dev
+<span class="preprocessor">##从主分支中创建并切换分支，同时关联到远程仓库origin的dev分支</span>
+git checkout -b dev origin/dev
+<span class="preprocessor">##切换到master分支</span>
+git checkout master
+</code></pre></li>
+</ol>
+<h3 id="branch"><code>branch</code></h3><ol>
+<li><p>说明</p>
+<p>分支管理命令</p>
+</li>
+<li><p>语法</p>
+<p>git branch [选项] [分支名称]</p>
+</li>
+<li><p>选项</p>
+<ul>
+<li><code>-a</code>：查看本地及远程仓库中的分支</li>
+<li><code>-d</code>：删除分支</li>
+<li><code>-D</code>：强行删除分支</li>
+<li><code>--set-upstream-to=origin/dev</code>：将远程仓库的分支与本地仓库的分支管理</li>
+</ul>
+</li>
+<li><p>示例</p>
+<pre><code>##创建<span class="built_in">dev</span>分支
+git branch <span class="built_in">dev</span>
+##将本地的<span class="built_in">dev</span>分支与远程仓库origin的<span class="built_in">dev</span>分支关联
+git branch --<span class="built_in">set</span>-upstream-to=origin/<span class="built_in">dev</span> <span class="built_in">dev</span>
+##列出所有分支，当前分支前面会标一个*号
+git branch
+</code></pre></li>
+</ol>
+<h3 id="merge"><code>merge</code></h3><ol>
+<li><p>说明</p>
+<p>分支合并</p>
+</li>
+<li><p>语法</p>
+<p>git merge [选项] 分支名称</p>
+</li>
+<li><p>选项</p>
+<ul>
+<li><code>--no-ff</code>：禁用Fast forward</li>
+<li><code>-m</code>：在禁用Fast forward，</li>
+</ul>
+</li>
+<li><p>示例</p>
+<pre><code>git <span class="built_in">merge</span> dev
+</code></pre></li>
+</ol>
+<h3 id="stash"><code>stash</code></h3><ol>
+<li><p>说明</p>
+<p>暂存当前工作现场</p>
+</li>
+<li><p>语法</p>
+<pre><code>git stash [<span class="link_label">选项</span>][<span class="link_reference">子命令</span>]
+</code></pre></li>
+<li><p>选项</p>
+<p>略</p>
+</li>
+<li><p><strong>子命令</strong></p>
+<ul>
+<li><code>list</code>：查看存储的工作现场</li>
+<li><code>apply [stash_id]</code>：恢复工作现场，但是恢复后，stash内容并不删除</li>
+<li><code>drop [stash_id]</code>：删除已存储的工作现场</li>
+<li><code>pop [stash_id]</code>：恢复工作现场，并删除stash</li>
+</ul>
+</li>
+<li><p>示例</p>
+<pre><code><span class="preprocessor">##保存当前工作现场</span>
+git stash
+<span class="preprocessor">##查看已保存的工作现场</span>
+git stash list 
+<span class="preprocessor">##恢复现场（单个现场是使用）</span>
+git stash apply
+<span class="preprocessor">##恢复指定的现场</span>
+git stash apply stash@{<span class="number">0</span>}
+<span class="preprocessor">##删除保存的现场</span>
+git stash drop
+<span class="preprocessor">##删除已保存的指定的现场</span>
+git stash drop stash@{<span class="number">0</span>}
+<span class="preprocessor">##恢复现场并从暂存空间删除</span>
+git stash pop
+<span class="preprocessor">##恢复指定的现场并从暂存空间删除</span>
+git stash pop stash@{<span class="number">0</span>}
+</code></pre></li>
+</ol>
+<h3 id="rm删除命令"><code>rm</code>删除命令</h3><ol>
+<li><p>说明</p>
+<p>将文件从版本库中移除，移除后要commit</p>
+</li>
+<li><p>语法</p>
+<pre><code>git <span class="keyword">rm</span> <span class="keyword">file</span>
+</code></pre></li>
+<li><p>选项</p>
+<p>略</p>
+</li>
+<li><p>示例</p>
+<pre><code>git <span class="keyword">rm</span> <span class="keyword">test</span>.txt
+</code></pre></li>
+</ol>
+<h3 id="remote"><code>remote</code></h3><ol>
+<li><p>说明</p>
+<p>查看远程仓库</p>
+</li>
+<li><p>语法</p>
+<pre><code><span class="atom">git</span> <span class="atom">remote</span> [选项] [子命令] [<span class="string">"远程仓库的别名"</span>] [远程仓库的<span class="atom">url</span>]
+</code></pre></li>
+<li><p>选项</p>
+<ul>
+<li><code>-v</code>：显示更详细的信息（抓取和推送的url）</li>
+</ul>
+</li>
+<li><p><strong>子命令</strong></p>
+<ul>
+<li><code>add</code>：添加远程仓库（即关联本地仓库和远程仓库）需要在本地仓库的<strong>主目录中执行该命令</strong></li>
+</ul>
+</li>
+<li><p>示例</p>
+<pre><code><span class="preprocessor">##通过ssh方式添加远程仓库</span>
+git remote add origin https:<span class="comment">//github.com/frainmeng/learn.git</span>
+<span class="preprocessor">##查看远程仓库</span>
+git remote -v
+</code></pre></li>
+</ol>
+<h3 id="push"><code>push</code></h3><ol>
+<li><p>说明</p>
+<p>把本地库的内容推送到远程    </p>
+</li>
+<li><p>语法</p>
+<pre><code>git push <span class="string">[选项]</span> 远程仓库别名 <span class="string">[本地仓库分支 or 标签名]</span>
+</code></pre></li>
+<li><p>选项</p>
+<ul>
+<li><code>-u</code>：初次推送使用，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令</li>
+</ul>
+</li>
+<li><p>示例</p>
+<pre><code><span class="preprocessor">##初次推送master分支到远程仓库</span>
+git <span class="keyword">push</span> -u origin master
+<span class="preprocessor">##将dev分支推送至远程仓库</span>
+git <span class="keyword">push</span> origin dev
+<span class="preprocessor">##将本地标签推送至远程仓库</span>
+git <span class="keyword">push</span> origin v1<span class="number">.0</span>
+<span class="preprocessor">##将本地所有标签推送至远程仓库</span>
+git <span class="keyword">push</span> origin --tags
+<span class="preprocessor">##将远程仓库中的标签删除</span>
+git <span class="keyword">push</span> origin :refs/tags/v1<span class="number">.0</span>
+</code></pre></li>
+</ol>
+<h3 id="clone"><code>clone</code></h3><ol>
+<li><p>说明</p>
+<p>从远程仓库克隆到本地仓库</p>
+</li>
+<li><p>语法</p>
+<pre><code>git <span class="built_in">clone</span> 远程仓库url
+</code></pre></li>
+<li><p>选项</p>
+<p>略</p>
+</li>
+<li><p>示例</p>
+<pre><code>git clone git<span class="annotation">@github</span>.<span class="string">com:</span>frainmeng/learn.git
+</code></pre></li>
+</ol>
+<h3 id="tag标签"><code>tag</code>标签</h3><ol>
+<li><p>说明</p>
+<p>标签操作</p>
+</li>
+<li><p>语法</p>
+<pre><code>git tag <span class="string">[选项]</span> &lt;tagname&gt; <span class="string">[选项]</span> <span class="string">[commit_id]</span>
+</code></pre></li>
+<li><p>选项</p>
+<ul>
+<li><code>-a</code>：配合<code>-m</code>使用，附加说明信息</li>
+<li><code>-m</code>：配合<code>-a</code>使用，附加说明信息</li>
+<li><code>-d</code>：删除标签</li>
+<li><code>-s</code>：用私钥签名一个标签</li>
+</ul>
+</li>
+<li><p>示例</p>
+<pre><code><span class="preprocessor">##创建标签</span>
+git tag v1<span class="number">.0</span>
+<span class="preprocessor">##在指定的（提交）位置创建标签</span>
+git tag v0<span class="number">.9</span> <span class="number">67833</span>a4
+<span class="preprocessor">##查看所有标签</span>
+git tag
+<span class="preprocessor">##为标签附加说明西悉尼</span>
+git tag -a v0<span class="number">.9</span> -m <span class="string">"说明信息"</span> <span class="number">67833</span>a4
+<span class="preprocessor">##删除标签</span>
+git tag -d v0<span class="number">.9</span>
+</code></pre></li>
+</ol>
+<h3 id="show"><code>show</code></h3><ol>
+<li><p>说明</p>
+<p>显示标签的详细信息</p>
+</li>
+<li><p>语法</p>
+<p>略</p>
+</li>
+<li><p>选项</p>
+<p>略</p>
+</li>
+<li><p>示例</p>
+<pre><code><span class="preprocessor">##查看标签的详细信息</span>
+git show v1<span class="number">.0</span>
+</code></pre></li>
+</ol>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[博客建站———记之]]></title>
       <url>http://frainmeng.github.io/2015/10/29/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99%E2%80%94%E2%80%94%E2%80%94%E8%AE%B0%E4%B9%8B/</url>
       <content type="html"><![CDATA[<p>一直想建立一个自己的静态博客，但是因为懒得搞，所以以前都是在csdn上写（其实也没有写多少）；最近工作不怎么忙，就自己捣鼓起来，没想到还真搞成了，嗯，很有成就感。</p>
