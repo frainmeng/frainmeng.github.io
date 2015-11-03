@@ -1,0 +1,586 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Redis 学习笔记 | Frainmeng&#39;s Blog</title>
+  <meta name="author" content="Frain Meng">
+  
+  <meta name="description" content="奔三的人了，一事无成，但是还是希望能留下一下足迹">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Redis 学习笔记"/>
+  <meta property="og:site_name" content="Frainmeng&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Frainmeng&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> Redis 学习笔记</h1>
+			<!-- 访问量 -->
+			<span id="busuanzi_container_site_pv">
+				Total pv：<span id="busuanzi_value_site_pv"></span>
+		    </span>
+		    <span id="busuanzi_container_site_uv">
+				，   Total uv：<span id="busuanzi_value_site_uv"></span>
+		    </span>
+			<span id="busuanzi_container_page_pv">
+				，   Total page pv：<span id="busuanzi_value_page_pv"></span>
+			</span>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>前段时间项目中用到Redis，是我第一次真正的使用Redis。最近工作不是很忙就根据官网的入门教程进行下简单的学习，并做了简单的笔记（就是简单的翻译一下）。还没有全部学完以后有时间会慢慢补充。</p>
+<a id="more"></a>
+<h2 id="Redis_数据类型和抽象">Redis 数据类型和抽象</h2><hr>
+<h3 id="简介">简介</h3><p>   redis支持一下几种数据类型</p>
+<ol>
+<li><p>二进制安全字符串（Binary-safe strings）</p>
+</li>
+<li><p>列表（Lists）<br>基于linkedlist，以插入顺序排序，元素为字符串类型</p>
+</li>
+<li><p>无序集合（Sets）<br>元素为字符串，无序且唯一</p>
+</li>
+<li><p>有序集合（Sorted sets）<br>类似于无序集合，但是有序集合中的每个string元素会关联一个成为score的float值，元素总是根据他们的score进行排序</p>
+</li>
+<li><p>哈希（Hashes）<br>即由一个filed关联一个value的map，field和value均为string</p>
+</li>
+<li><p>简单的位图（Bit arrays or simply bitmaps）<br><strong>*目前还不懂是什么类型</strong></p>
+</li>
+<li><p>HyperLogLogs<br><strong>*这个也是不懂</strong></p>
+</li>
+</ol>
+<h3 id="Redis的key介绍">Redis的key介绍</h3><p>redis 可以使用任何二进制序列作为key的值，一个空的字符串也可以<br>下面是一些key值的使用规则</p>
+<ol>
+<li>key的值不应太长，太长的话会影响浪费存储空间，并且影响查询效率</li>
+<li>key的值也不应该太短，应该尽量能表达出key要表达的意义；所以key的值应该考虑占用空间尽量小，且能明确表达出其意义</li>
+<li>尽量使用一个固定模式，例如object-type:id</li>
+<li>key值允许最大值为512M</li>
+</ol>
+<p><strong>注意：</strong> Redis的执行写操作时，如果key不存在，Redis将自动创建key；执行读操作时，对于聚合类数据类型，如果数据元素为空时将销毁对应的key<br>针对不同的数据类型，redis有不同的命令，不可混合</p>
+<h3 id="String_类型">String 类型</h3><p>string 类型是用于redis key的最简单的数据类型，也是key经常使用的数据类型</p>
+<h3 id="List_类型">List 类型</h3><p>Redis中的List类型通过<strong>linkedlist</strong>数据结构实现，所以插入的效率很快，但是通过<em>index</em>获取数据会很慢</p>
+<p>List类型常用于以下两种情况</p>
+<ul>
+<li>社交网络中记录用户最后一次的更新</li>
+<li>进程间通信，使用生产者消费者模式；针对这种使用形式，Redis提供了特殊的命令来保证高可靠性和高效率</li>
+</ul>
+<h3 id="Hash_类型">Hash 类型</h3><p>Redis中的Hash类型类似于java中的Map类型，是一个field-value键值对</p>
+<h3 id="Set_类型">Set 类型</h3><hr>
+<hr>
+<h2 id="Redis_常用命令">Redis 常用命令</h2><hr>
+<h3 id="String_常用命令">String 常用命令</h3><ol>
+<li><p><code>set</code> 命令</p>
+<p>如果key应经存在，则进行覆盖，key和value的大小不可超过512M</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code><span class="built_in">set</span> <span class="built_in">key</span> <span class="built_in">value</span> [options]
+</code></pre><p>常用选项：</p>
+<p>|| <strong>选项</strong> || <strong>说明</strong> ||<br>|| <code>nx</code> || key存在时执行失败 ||<br>|| <code>xx</code> || key不存在时执行失败 ||</p>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code>*   <span class="keyword">ex</span>
+
+        <span class="keyword">set</span> mykey myvalue
+</code></pre><ol>
+<li><p><code>get</code> 命令</p>
+<p>根据key获取值</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code><span class="built_in">get</span> <span class="variable">key</span> 
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="keyword">get</span> mykey
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>incr</code> 命令</p>
+<p>自增长命令,可以将一个字符串解析为一个整型，默认步长为1，将得到的新值存储到key下，该操作是原子性的</p>
+<p>其他类似的命令<code>incrby</code>、<code>decr</code>、<code>decyby</code> </p>
+<ul>
+<li><p>使用格式</p>
+<pre><code>incr <span class="keyword">key</span> [<span class="keyword">step</span>]
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="built_in">set</span> counter <span class="number">100</span>
+incr counter
+incr counter <span class="number">50</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>getset</code></p>
+<p>返回原key的值，并设置新的值</p>
+</li>
+</ol>
+<pre><code><span class="bullet">*   </span>使用格式
+
+<span class="code">        getset key newvalue</span>
+
+<span class="bullet">*   </span>ex 
+
+<span class="code">        getset mykey mynewvalue</span>
+</code></pre><ol>
+<li><p><code>mset</code>，<code>mget</code></p>
+<p> 多个key的设置与值获取<br> 使用mget时会返回一个数组</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code>mset key<span class="number">1</span> <span class="keyword">value</span> key<span class="number">2</span> <span class="keyword">value</span><span class="number">2</span> key<span class="number">3</span> <span class="keyword">value</span><span class="number">3</span> ...
+
+mget key<span class="number">1</span> key<span class="number">2</span> key<span class="number">3</span> ...
+</code></pre></li>
+<li><p>ex</p>
+<pre><code>mset <span class="tag">a</span> <span class="number">10</span> <span class="tag">b</span> <span class="number">20</span> c <span class="number">30</span>
+
+mget <span class="tag">a</span> <span class="tag">b</span> c
+</code></pre></li>
+</ul>
+</li>
+<li><p><a href="http://redis.io/commands#string" title="More Strings operators" target="_blank" rel="external">String 更多命令</a></p>
+</li>
+</ol>
+<h3 id="key_常用命令">key 常用命令</h3><ol>
+<li><p><code>exists</code></p>
+<p>判断给定的key是否存在，存在返回1，否则返回0</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code><span class="keyword">exists</span> key
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="keyword">exists</span> mykey
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>del</code></p>
+<p>删除指定的key，key存在返回1，否则返回0</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code><span class="tag">del</span> key
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="tag">del</span> mykey
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>type</code></p>
+<p>查看key的数据类型</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code><span class="typedef"><span class="keyword">type</span> key</span>
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="typedef"><span class="keyword">type</span> mykey</span>
+</code></pre></li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p><code>expire</code></p>
+<p>设置key的存活周期，时间精度为秒；存活周期信息会被复制并持久化到硬盘</p>
+<ul>
+<li><p>使用格式</p>
+<p>对已经存在的key进行设置</p>
+<pre><code>expire key <span class="keyword">times</span>
+</code></pre><p>在初始化时设置</p>
+<pre><code><span class="built_in">set</span> <span class="built_in">key</span> <span class="built_in">value</span> ex times
+</code></pre></li>
+<li><p>ex</p>
+<pre><code>expire mykey <span class="number">5</span>
+
+<span class="built_in">set</span> mykey <span class="number">100</span> ex <span class="number">10</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>ttl</code></p>
+<p>查看key存活期生意时间</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code><span class="title">ttl</span> mkey
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="built_in">set</span> mykey <span class="number">100</span> ex <span class="number">10</span>
+
+ttl mykey
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>pexpire</code>，<code>pttl</code></p>
+<p>设置和查看存活周期剩余时间，功能同<code>expire</code>和<code>ttl</code></p>
+</li>
+<li><p><a href="http://redis.io/commands#generic" title="More keys operators" target="_blank" rel="external">Key 的更多命令</a></p>
+</li>
+</ol>
+<h3 id="List_常用命令">List 常用命令</h3><ol>
+<li><p><code>lpush</code>，’rpush’</p>
+<p>向list中添加数据，<code>lpush</code>在左边（头部）添加数据；<code>rpush</code>在右边（尾部）添加数据</p>
+<p>命令将返回添加数据后的list的大小</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code>rpush list <span class="keyword">value</span><span class="number">1</span> <span class="keyword">value</span><span class="number">2</span> <span class="keyword">value</span><span class="number">3</span> ...
+
+lpush list <span class="keyword">value</span><span class="number">1</span> <span class="keyword">value</span><span class="number">2</span> <span class="keyword">value</span><span class="number">3</span> ...
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="label">rpush</span> mylist A <span class="keyword">B </span>C
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>lrange</code></p>
+<p>提取给定范围（两个index）的数据；index可以为负数，负数表示尾部数据，例如 <code>-1</code> 表示最后一条数据、<code>-2</code> 表示倒数第二条数据</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code><span class="keyword">lrange</span> <span class="keyword">list</span> index1 index2
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="comment">#返回第一条到最后一条（即所有）</span>
+<span class="keyword">lrange</span> mylist <span class="number">0</span> -<span class="number">1</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>lpop</code>，<code>rpop</code></p>
+<p>提取数据并从list中删除数据，表示从头部（<code>lpop</code>）或尾部（<code>rpop</code>）提取一个数据并从list中消除该条数据;如果list中没有数据时返回<code>null</code></p>
+<ul>
+<li><p>使用格式</p>
+<pre><code>lpop <span class="type">list</span>
+
+rpop <span class="type">list</span>
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="title">lpop</span> mylist
+
+rpop mylist
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>ltrim</code></p>
+<p>设置list，使list只保存给定下标范围的数据，超出给定index的数据将被remove掉</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code>ltrim list i<span class="label">ndex1</span> i<span class="label">ndex2</span>
+</code></pre></li>
+<li><p>ex</p>
+<pre><code>ltrim mylist <span class="number">0</span> <span class="number">2</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>brpop</code>，<code>blpop</code></p>
+<p>list的阻塞操作，常用来构建队列</p>
+<p>如果list为空，客户端将等待，指定其他客户端push数据或超时</p>
+<p>timeout设置为0时，客户端将一直等待直到其他客户端向list中push数据</p>
+<p>可以跟多个list，当第一个list收到数据时返回</p>
+<p>多个客户端同时执行阻塞操作时，将按先后顺序返回（先阻塞的先返回）</p>
+<p>正常（非timeout）返回值是一个由两个元素组成的数组</p>
+<p>超时将返回null</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code>brpop list1 list2 ... <span class="keyword">timeout</span>
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="keyword">brpop </span>mylist <span class="number">5</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>llen</code></p>
+<p>获取list的长度</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code>llen <span class="type">list</span>
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="title">llen</span> mylist
+</code></pre></li>
+</ul>
+</li>
+<li><p><a href="http://redis.io/commands#list" title="More lists opertaors" target="_blank" rel="external">List 的更多命令</a></p>
+</li>
+</ol>
+<h3 id="Hash_常用命令">Hash 常用命令</h3><ol>
+<li><p><code>hmset</code></p>
+<p>向Hash中设置对个field</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code>hmset hashkey field<span class="number">1</span> <span class="keyword">value</span><span class="number">1</span> field<span class="number">2</span> <span class="keyword">value</span><span class="number">2</span> ...
+</code></pre></li>
+<li><p>ex</p>
+<pre><code>hmset user:<span class="number">1000</span> username antirez birthyear <span class="number">1977</span> verified <span class="number">1</span>
+</code></pre></li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p><code>hget</code></p>
+<p>查询单个filed</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code><span class="label">hget</span> hashkey <span class="preprocessor">field</span>
+</code></pre></li>
+<li><p>ex</p>
+<pre><code>hget user:<span class="number">1000</span> username
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>hmget</code></p>
+<p>查询多个field，返回一个数组（保存对应域的值）</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code>hmget hashkey field1 field2 ...
+</code></pre></li>
+<li><p>ex</p>
+<pre><code><span class="label">hmget</span> user:<span class="number">1000</span> username <span class="keyword">birthyear </span>no-such-<span class="preprocessor">field</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>hincrby</code></p>
+<p>针对单个field进行增长操作</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code>hincrby hashkey <span class="keyword">field</span> <span class="keyword">step</span>
+</code></pre></li>
+<li><p>ex</p>
+<pre><code>hincrby user:<span class="number">1000</span> birthyear <span class="number">10</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p><a href="http://redis.io/commands#hash" title="More Hash operators" target="_blank" rel="external">Hash 操作更多命令</a></p>
+</li>
+</ol>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/10/29/Git-常用命令及使用说明/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2015/11/03/Redis-学习笔记/" data-title="Redis 学习笔记" data-url="http://frainmeng.github.io/2015/11/03/Redis-学习笔记/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2015-11-03 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/学习笔记/">学习笔记<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Redis/">Redis<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Redis_数据类型和抽象"><span class="toc-article-text">Redis 数据类型和抽象</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#简介"><span class="toc-article-text">简介</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Redis的key介绍"><span class="toc-article-text">Redis的key介绍</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#String_类型"><span class="toc-article-text">String 类型</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#List_类型"><span class="toc-article-text">List 类型</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Hash_类型"><span class="toc-article-text">Hash 类型</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Set_类型"><span class="toc-article-text">Set 类型</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Redis_常用命令"><span class="toc-article-text">Redis 常用命令</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#String_常用命令"><span class="toc-article-text">String 常用命令</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#key_常用命令"><span class="toc-article-text">key 常用命令</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#List_常用命令"><span class="toc-article-text">List 常用命令</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Hash_常用命令"><span class="toc-article-text">Hash 常用命令</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'frainmeng' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2015 Frain Meng
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
