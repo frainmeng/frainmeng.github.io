@@ -6,7 +6,11 @@
     <entry>
       <title><![CDATA[Git 常用命令及使用说明]]></title>
       <url>http://frainmeng.github.io/2015/10/29/Git-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
-      <content type="html"><![CDATA[<h3 id="配置命令config">配置命令<code>config</code></h3><ol>
+      <content type="html"><![CDATA[<p>最近在学习git，下面总结了一些常用的命令，帮助自己记忆。</p>
+<p>都是一些简单命令，其中包括一些语法、选项和一些使用的实例。</p>
+<p>在使用这些命令的过程中可以作为参考。</p>
+<a id="more"></a>
+<h3 id="配置命令config">配置命令<code>config</code></h3><ol>
 <li><p>说明</p>
 <p>用于配置本机git的相关属性</p>
 </li>
