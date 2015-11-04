@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>博客建站———记之 | Frainmeng&#39;s Blog</title>
+  <title>virtualbox复制虚拟机 | Frainmeng&#39;s Blog</title>
   <meta name="author" content="Frain Meng">
   
-  <meta name="description" content="博客开通，记一下.">
+  <meta name="description" content="奔三的人了，一事无成，但是还是希望能留下一下足迹">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="博客建站———记之"/>
+  <meta property="og:title" content="virtualbox复制虚拟机"/>
   <meta property="og:site_name" content="Frainmeng&#39;s Blog"/>
 
   
@@ -90,7 +90,7 @@
 
 	
 		<div class="page-header">		
-			<h1> 博客建站———记之</h1>
+			<h1> virtualbox复制虚拟机</h1>
 			<!-- 访问量 -->
 			<span id="busuanzi_container_site_pv">
 				Total pv：<span id="busuanzi_value_site_pv"></span>
@@ -115,21 +115,48 @@
 
 	<!-- content -->
 	<div class="mypage">		
-	  
-		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> <p>博客开通，记一下.</p>
-			
-		 </div> <!-- alert -->
 	  		
 
-	  <p>一直想建立一个自己的静态博客，但是因为懒得搞，所以以前都是在csdn上写（其实也没有写多少）；最近工作不怎么忙，就自己捣鼓起来，没想到还真搞成了，嗯，很有成就感。</p>
-<p>以后就可以在这里记录下自己的生活，学习和工作；也希望和大家一起分享。谢谢！！！</p>
+	  <p>因为需要两台一样的linux机器进行测试，而我的virtualbox中已经装了一个centos的虚机，现在想要clone这样一台虚拟机，就省去了重新安装和配置的麻烦。</p>
+<a id="more"></a>
+<h3 id="克隆虚机">克隆虚机</h3><p>想要克隆很简单，virtualbox也提供了这样一个功能：</p>
+<ol>
+<li><p>选择要复制的虚拟机，右键菜单选择复制</p>
+<p><img src="/img/clone_vm_000001.png" alt="复制虚拟机" title="clone vm"></p>
+</li>
+<li><p>在弹出菜单中按下图选择后点击复制</p>
+<p><img src="/img/clone_vm_000002.png" alt="复制虚拟机" title="clone vm"></p>
+</li>
+<li><p>复制完成后就可以启动了，但是网络可能会连不上，需要进行一些配置<br>这是因为我们复制的时候，把机器的网卡的Mac地址配置也复制过来了，<br>所以下面我们进行一些配置</p>
+</li>
+</ol>
+<h3 id="配置">配置</h3><p>启动复制的虚机并登陆（用户名和密码和复制源机器相同）</p>
+<ol>
+<li><p>查看网卡</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="constant">@localhost</span> ~]<span class="preprocessor"># cd /etc/sysconfig/network-scripts/</span></span><br><span class="line">[root<span class="constant">@localhost</span> network-scripts]<span class="preprocessor"># ls</span></span><br></pre></td></tr></table></figure>
+<p>列出的文件中ifcfg-ethx(x为数字)便是你的网卡了</p>
+</li>
+<li><p>修改网卡Mac地址配置</p>
+<p>可以通过下面的方式查看你的机器的Mac地址，选中你的虚机，右键，设置<br><img src="/img/clone_vm_000003.png" alt="查看Mac地址" title="clone vm"><br>在设置中查看<br><img src="/img/clone_vm_000004.png" alt="查看Mac地址" title="clone vm"></p>
+<p>修改网卡的Mac地址之前建议备份一下（我用的是eth1）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]<span class="comment"># cp ifcfg-eth1 ifcfg-eth1bak20151104</span></span><br></pre></td></tr></table></figure>
+<p>现在可以修改了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]<span class="comment"># vi ifcfg-eth1</span></span><br></pre></td></tr></table></figure>
+<p>修改HAWADDR（即上面查出来的Mac地址，注意格式）<br><img src="/img/clone_vm_000005.png" alt="修改Mac地址" title="clone vm"><br>修改好后保存退出，重启网络服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]<span class="comment"># service network restart</span></span><br></pre></td></tr></table></figure>
+<p>如果服务重启失败那就重启机器<br>如果还是不行就查看下面的配置</p>
+</li>
+<li><p>修改网卡配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost rules.d]<span class="comment"># cd /etc/udev/rules.d/</span></span><br><span class="line">[root@localhost rules.d]<span class="comment"># ls</span></span><br><span class="line"><span class="number">60</span>-raw.rules  <span class="number">70</span>-persistent-cd.rules  <span class="number">70</span>-persistent-net.rules  <span class="number">99</span>-fuse.rules</span><br><span class="line">[root@localhost rules.d]<span class="comment"># vi 70-persistent-net.rules</span></span><br></pre></td></tr></table></figure>
+<p>查看你对应的网卡的Mac地址对不对，如果不对，就修改然后再重启。</p>
+</li>
+</ol>
 	 
 	  <!-- declaration -->
 	  <div class="declaration">
 		<strong style="color:red;text-shadow: rgb(212, 106, 64) 5px 3px 3px;">Declaration :  </strong><br>
-		<strong style="color:rgb(212, 106, 64);">Title :  </strong><a href="/2015/10/29/博客建站———记之/">博客建站———记之</a><br>
-		<strong style="color:rgb(212, 106, 64);">Url   :  </strong><a href="/2015/10/29/博客建站———记之/">http://frainmeng.github.io/2015/10/29/博客建站———记之/</a><br>
+		<strong style="color:rgb(212, 106, 64);">Title :  </strong><a href="/2015/11/04/virtualbox复制虚拟机/">virtualbox复制虚拟机</a><br>
+		<strong style="color:rgb(212, 106, 64);">Url   :  </strong><a href="/2015/11/04/virtualbox复制虚拟机/">http://frainmeng.github.io/2015/11/04/virtualbox复制虚拟机/</a><br>
 		转载请注明出处<a href="http://frainmeng.github.io">Frainmeng's Blog</a>，本博客采用<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/deed.zh">署名-非商业性使用-相同方式共享协议v2.5</a>
 	  </div>
 	</div>
@@ -139,14 +166,14 @@
 	<div class="pagination">
 <ul class="pagination">
 	 
-				
-    	<li class="prev"><a href="/2015/10/29/Git-常用命令及使用说明/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一篇</a></li>
-  		
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一篇</a></li>
+        
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-          <li class="next disabled"><a>下一篇<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		   <li class="next"><a href="/2015/11/03/Redis-学习笔记/" class="alignright next">下一篇<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
@@ -165,7 +192,7 @@
   <h2 class="title">留言</h2>
 
   
-  	 <div class="ds-thread" data-thread-key="2015/10/29/博客建站———记之/" data-title="博客建站———记之" data-url="http://frainmeng.github.io/2015/10/29/博客建站———记之/"></div>  
+  	 <div class="ds-thread" data-thread-key="2015/11/04/virtualbox复制虚拟机/" data-title="virtualbox复制虚拟机" data-url="http://frainmeng.github.io/2015/11/04/virtualbox复制虚拟机/"></div>  
   
 </section>
 
@@ -179,7 +206,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2015-10-29 
+	2015-11-04 
 	</div>
 	
 
@@ -190,7 +217,7 @@
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/个人生活/">个人生活<span>1</span></a></li>
+    <li><a href="/categories/linux/">linux<span>1</span></a></li>
   </li>
 
     </ul>
@@ -203,7 +230,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/日记/">日记<span>1</span></a></li>
+  <li><a href="/tags/virtualbox/">virtualbox<span>1</span></a></li>
     </ul>
 	</div>
 		
@@ -213,7 +240,7 @@
 	
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
-			
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#克隆虚机"><span class="toc-article-text">克隆虚机</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#配置"><span class="toc-article-text">配置</span></a></li></ol>
 		</div>
 	
 	</div>

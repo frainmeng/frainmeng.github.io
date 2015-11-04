@@ -4,6 +4,46 @@
   
     
     <entry>
+      <title><![CDATA[virtualbox复制虚拟机]]></title>
+      <url>http://frainmeng.github.io/2015/11/04/virtualbox%E5%A4%8D%E5%88%B6%E8%99%9A%E6%8B%9F%E6%9C%BA/</url>
+      <content type="html"><![CDATA[<p>因为需要两台一样的linux机器进行测试，而我的virtualbox中已经装了一个centos的虚机，现在想要clone这样一台虚拟机，就省去了重新安装和配置的麻烦。</p>
+<a id="more"></a>
+<h3 id="克隆虚机">克隆虚机</h3><p>想要克隆很简单，virtualbox也提供了这样一个功能：</p>
+<ol>
+<li><p>选择要复制的虚拟机，右键菜单选择复制</p>
+<p><img src="/img/clone_vm_000001.png" alt="复制虚拟机" title="clone vm"></p>
+</li>
+<li><p>在弹出菜单中按下图选择后点击复制</p>
+<p><img src="/img/clone_vm_000002.png" alt="复制虚拟机" title="clone vm"></p>
+</li>
+<li><p>复制完成后就可以启动了，但是网络可能会连不上，需要进行一些配置<br>这是因为我们复制的时候，把机器的网卡的Mac地址配置也复制过来了，<br>所以下面我们进行一些配置</p>
+</li>
+</ol>
+<h3 id="配置">配置</h3><p>启动复制的虚机并登陆（用户名和密码和复制源机器相同）</p>
+<ol>
+<li><p>查看网卡</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="constant">@localhost</span> ~]<span class="preprocessor"># cd /etc/sysconfig/network-scripts/</span></span><br><span class="line">[root<span class="constant">@localhost</span> network-scripts]<span class="preprocessor"># ls</span></span><br></pre></td></tr></table></figure>
+<p>列出的文件中ifcfg-ethx(x为数字)便是你的网卡了</p>
+</li>
+<li><p>修改网卡Mac地址配置</p>
+<p>可以通过下面的方式查看你的机器的Mac地址，选中你的虚机，右键，设置<br><img src="/img/clone_vm_000003.png" alt="查看Mac地址" title="clone vm"><br>在设置中查看<br><img src="/img/clone_vm_000004.png" alt="查看Mac地址" title="clone vm"></p>
+<p>修改网卡的Mac地址之前建议备份一下（我用的是eth1）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]<span class="comment"># cp ifcfg-eth1 ifcfg-eth1bak20151104</span></span><br></pre></td></tr></table></figure>
+<p>现在可以修改了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]<span class="comment"># vi ifcfg-eth1</span></span><br></pre></td></tr></table></figure>
+<p>修改HAWADDR（即上面查出来的Mac地址，注意格式）<br><img src="/img/clone_vm_000005.png" alt="修改Mac地址" title="clone vm"><br>修改好后保存退出，重启网络服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]<span class="comment"># service network restart</span></span><br></pre></td></tr></table></figure>
+<p>如果服务重启失败那就重启机器<br>如果还是不行就查看下面的配置</p>
+</li>
+<li><p>修改网卡配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost rules.d]<span class="comment"># cd /etc/udev/rules.d/</span></span><br><span class="line">[root@localhost rules.d]<span class="comment"># ls</span></span><br><span class="line"><span class="number">60</span>-raw.rules  <span class="number">70</span>-persistent-cd.rules  <span class="number">70</span>-persistent-net.rules  <span class="number">99</span>-fuse.rules</span><br><span class="line">[root@localhost rules.d]<span class="comment"># vi 70-persistent-net.rules</span></span><br></pre></td></tr></table></figure>
+<p>查看你对应的网卡的Mac地址对不对，如果不对，就修改然后再重启。</p>
+</li>
+</ol>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Redis 学习笔记]]></title>
       <url>http://frainmeng.github.io/2015/11/03/Redis-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<p>前段时间项目中用到Redis，是我第一次真正的使用Redis。最近工作不是很忙就根据官网的入门教程进行下简单的学习，并做了简单的笔记（就是简单的翻译一下）。还没有全部学完以后有时间会慢慢补充。</p>
