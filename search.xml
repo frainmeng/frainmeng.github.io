@@ -89,18 +89,13 @@
 <li><p><code>set</code> 命令</p>
 <p>如果key应经存在，则进行覆盖，key和value的大小不可超过512M</p>
 <ul>
-<li><p>使用格式</p>
-<pre><code><span class="built_in">set</span> <span class="built_in">key</span> <span class="built_in">value</span> [options]
-</code></pre><p>常用选项：</p>
-<p>|| <strong>选项</strong> || <strong>说明</strong> ||<br>|| <code>nx</code> || key存在时执行失败 ||<br>|| <code>xx</code> || key不存在时执行失败 ||</p>
-</li>
+<li>使用格式<pre><code><span class="built_in">set</span> <span class="built_in">key</span> <span class="built_in">value</span> [options]
+</code></pre>常用选项：<br>|选项|说明|<br>|——|——————–|<br>| <code>nx</code> | key存在时执行失败  |<br>| <code>xx</code> | key不存在时执行失败|</li>
+<li><p>ex</p>
+<pre><code><span class="keyword">set</span> mykey myvalue
+</code></pre></li>
 </ul>
 </li>
-</ol>
-<pre><code>*   <span class="keyword">ex</span>
-
-        <span class="keyword">set</span> mykey myvalue
-</code></pre><ol>
 <li><p><code>get</code> 命令</p>
 <p>根据key获取值</p>
 <ul>
@@ -128,16 +123,15 @@ incr counter <span class="number">50</span>
 </li>
 <li><p><code>getset</code></p>
 <p>返回原key的值，并设置新的值</p>
+<ul>
+<li><p>使用格式</p>
+<pre><code><span class="title">getset</span> key newvalue
+</code></pre></li>
+<li><p>ex </p>
+<pre><code><span class="title">getset</span> mykey mynewvalue
+</code></pre></li>
+</ul>
 </li>
-</ol>
-<pre><code><span class="bullet">*   </span>使用格式
-
-<span class="code">        getset key newvalue</span>
-
-<span class="bullet">*   </span>ex 
-
-<span class="code">        getset mykey mynewvalue</span>
-</code></pre><ol>
 <li><p><code>mset</code>，<code>mget</code></p>
 <p> 多个key的设置与值获取<br> 使用mget时会返回一个数组</p>
 <ul>
