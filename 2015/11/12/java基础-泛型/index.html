@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>java基础----泛型 | Frainmeng&#39;s Blog</title>
+  <meta name="author" content="Frain Meng">
+  
+  <meta name="description" content="Java 泛型的用法.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="java基础----泛型"/>
+  <meta property="og:site_name" content="Frainmeng&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Frainmeng&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> java基础----泛型</h1>
+			<!-- 访问量 -->
+			<span id="busuanzi_container_site_pv">
+				Total pv：<span id="busuanzi_value_site_pv"></span>
+		    </span>
+		    <span id="busuanzi_container_site_uv">
+				，   Total uv：<span id="busuanzi_value_site_uv"></span>
+		    </span>
+			<span id="busuanzi_container_page_pv">
+				，   Total page pv：<span id="busuanzi_value_page_pv"></span>
+			</span>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> <p>Java 泛型的用法.</p>
+			
+		 </div> <!-- alert -->
+	  		
+	  
+	  <p>在Java的类中’java.util.concurrent.ForkJoinTask<v><br>‘偶然看到这样一段代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ForkJoinTask&lt;T&gt; <span class="title">adapt</span><span class="params">(Callable&lt;? extends T&gt; callable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AdaptedCallable&lt;T&gt;(callable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></v></p>
+<p>其中<code>&lt;T&gt; ForkJoinTask&lt;T&gt;</code>这个泛型让我无法理解，以前从没有遇见过这样使用泛型的，那就查吧。</p>
+<a id="more"></a>
+<h3 id="常见的几种泛型表示">常见的几种泛型表示</h3><p>以为不知道是不是还有其他的表示，所以这里就说他们是常见的吧</p>
+<ol>
+<li><p><code>&lt;T&gt;,&lt;K&gt;,&lt;V&gt;,&lt;E&gt;</code>等<br>这种用法就是在&lt;&gt;中指定泛型，其中的字母如T(type)、K(key)、V(value)、E(element)）等只是用一个标识符，你也可以用A、B、C等其他的字母代替<br>如果有多个类型需要泛型的话就用一个<code>,</code>分隔开就行了比如我们常用的<code>Map&lt;K,V&gt;</code><br>例如:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> &lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    T list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>&lt;?&gt;</code>通配符<br>这个就是简单的表示java中的任意类了<br>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;?&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();<span class="comment">//效果等同于List list = new ArrayList()</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>限定范围<br>限定可以分为限定上限和限定下限<br>限定上限使用<code>extends</code>关键字：<br>&lt;? extends A&gt; 接受A或者A的子类<br>限定下限使用<code>supper</code>关键字：<br>&lt;? supper A&gt; 接受A或者A父类</p>
+</li>
+</ol>
+<h3 id="自定义泛型">自定义泛型</h3><p>泛型的定义我见到的是有三种种：泛型类、泛型接口和泛型方法</p>
+<ol>
+<li><p>泛型类<br>就是在定义类的使用泛型<br>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TT</span> &lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> K key;</span><br><span class="line">    <span class="keyword">private</span> V value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TT</span><span class="params">(K key,V value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>泛型接口<br>将泛型应用于接口<br>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Generator</span>&lt;<span class="title">T</span>&gt; </span>&#123;  </span><br><span class="line">    <span class="function">T <span class="title">next</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>泛型方法<br>将泛型应用于方法<br>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;E&gt; <span class="function">E <span class="title">getEle</span><span class="params">(List&lt;E&gt; list)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> list.get(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里可以看到在返回类型E 前面还有个<e> 这个的作用表示E这个泛型的作用范围限定在这个方法。</e></p>
+</li>
+</ol>
+<h3 id="补充">补充</h3><p>在使用泛型的时候，我们有时候可能想要实例化一个泛型的数组，向下面这种<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TT</span> &lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    Class&lt;T&gt; type;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> length;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TT</span><span class="params">(<span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.length = length;</span><br><span class="line">        T[] arrays = <span class="keyword">new</span> T[length];<span class="comment">//这里编译报错不能通过；</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>针对这种情况可以使用下面这个方式来实现;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TT</span> &lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    Class&lt;T&gt; type;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> length;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TT</span><span class="params">(<span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.length = length;</span><br><span class="line">        T[] arrays = (T[]) Array.newInstance(type, length);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里用到了<code>java.lang.reflect.Array</code>这个类，这个类是java的反射包的类，它支持动态类型。</p>
+<h3 id="扩展">扩展</h3><p>如果想了解更多关于java的泛型，可以看看这个人的一边博客，写的很详细：<br><a href="http://jiangzhengjun.iteye.com/blog/540535" target="_blank" rel="external">泛型 —— Java编程思想 </a></p>
+	 
+	  
+	  <!-- declaration -->
+	  
+<div class="declaration">
+	<strong style="color:red;text-shadow: rgb(212, 106, 64) 5px 3px 3px;">Declaration :  </strong><br>
+	<strong style="color:rgb(212, 106, 64);">Title :  </strong><a href="/2015/11/12/java基础-泛型/">java基础----泛型</a><br>
+	<strong style="color:rgb(212, 106, 64);">Url   :  </strong><a href="/2015/11/12/java基础-泛型/">http://frainmeng.github.io/2015/11/12/java基础-泛型/</a><br>
+	转载请注明出处<a href="http://frainmeng.github.io">Frainmeng's Blog</a>，本博客采用<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/deed.zh">署名-非商业性使用-相同方式共享协议v2.5</a>
+</div>
+
+ 
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一篇</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/11/10/Spring-单元测试的一个例子/" class="alignright next">下一篇<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<!-- 多说热评文章 start -->
+	
+<section id="recommend">
+  <h2 class="title">文章推荐</h2>
+  
+  	 <ul  class="ds-top-threads" data-range="monthly" data-num-items="5"></ul> 
+  
+</section>
+
+	<!-- 多说热评文章 end -->
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2015/11/12/java基础-泛型/" data-title="java基础----泛型" data-url="http://frainmeng.github.io/2015/11/12/java基础-泛型/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2015-11-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/java/">java<span>2</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/java-se/">java se<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#常见的几种泛型表示"><span class="toc-article-text">常见的几种泛型表示</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#自定义泛型"><span class="toc-article-text">自定义泛型</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#补充"><span class="toc-article-text">补充</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#扩展"><span class="toc-article-text">扩展</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'frainmeng' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2015 Frain Meng
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
