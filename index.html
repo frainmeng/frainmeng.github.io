@@ -114,6 +114,58 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
+			<div class="date"> 2015-11-19 </div>
+			<div class="article-title"><a href="/2015/11/19/PL-SQL-Developer使用Oracle-instant-client配置/" title="PL/SQL Developer配置Instant client.">PL/SQL Developer使用Oracle instant client配置</a></div>						
+		</h3>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+           
+              <div class="thumbnail"><a href="/2015/11/19/PL-SQL-Developer使用Oracle-instant-client配置/"><img src="img/plsql_feature.png" alt="PL/SQL Developer使用Oracle instant client配置"  class="nofancybox"></a>
+           
+		</div>
+	
+	
+		<h3 id="问题">问题</h3><p>在使用PL/SQL Developer工具时会遇到这种情况：不想装Oracle的客户端，想使用Instant client，但是在配置的时候会遇到不少麻烦。我就在使用时也遇到该问题，记下解决的方法</p>
+	
+	</div>
+  <a type="button" href="/2015/11/19/PL-SQL-Developer使用Oracle-instant-client配置/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2015-11-16 </div>
+			<div class="article-title"><a href="/2015/11/16/java基础-lambda/" title="Java8新特性是Lambda表达式.">Java基础(lambda)</a></div>						
+		</h3>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+           
+              <div class="thumbnail"><a href="/2015/11/16/java基础-lambda/"><img src="img/java_feature.jpg" alt="Java基础(lambda)"  class="nofancybox"></a>
+           
+		</div>
+	
+	
+		<h3 id="简介">简介</h3><p>Lambda表达式是Java SE 8 非常重要的新特性。对于单方法的接口，Lambda表达式提供一种干净简洁的代码实现方式。同时，Lambda表达式改良了<code>Collection</code>类包，使得迭代，filter和extract data from a Collection更简单。并且，其并行的特性在多核环境中性能得到很大提高。</p>
+	
+	</div>
+  <a type="button" href="/2015/11/16/java基础-lambda/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
 			<div class="date"> 2015-11-12 </div>
 			<div class="article-title"><a href="/2015/11/12/java基础-泛型/" title="Java 泛型的用法.">java基础----泛型</a></div>						
 		</h3>
@@ -129,7 +181,7 @@
 		</div>
 	
 	
-		<p>在Java的类中’java.util.concurrent.ForkJoinTask<V><br>‘偶然看到这样一段代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ForkJoinTask&lt;T&gt; <span class="title">adapt</span><span class="params">(Callable&lt;? extends T&gt; callable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AdaptedCallable&lt;T&gt;(callable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+		<p>在Java的类中<code>java.util.concurrent.ForkJoinTask</code>偶然看到这样一段代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ForkJoinTask&lt;T&gt; <span class="title">adapt</span><span class="params">(Callable&lt;? extends T&gt; callable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AdaptedCallable&lt;T&gt;(callable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其中<code>&lt;T&gt; ForkJoinTask&lt;T&gt;</code>这个泛型让我无法理解，以前从没有遇见过这样使用泛型的，那就查吧。</p>
 	
 	</div>
@@ -332,13 +384,15 @@
 		<h4>分类</h4>
 		<ul class="tag_box inline list-unstyled">
 		
-			<li><a href="/categories/java/">java<span>2</span></a></li>
+			<li><a href="/categories/java/">java<span>3</span></a></li>
 		
 			<li><a href="/categories/linux/">linux<span>1</span></a></li>
 		
 			<li><a href="/categories/个人生活/">个人生活<span>1</span></a></li>
 		
 			<li><a href="/categories/学习笔记/">学习笔记<span>1</span></a></li>
+		
+			<li><a href="/categories/开发工具使用/">开发工具使用<span>1</span></a></li>
 		
 			<li><a href="/categories/项目管理工具/">项目管理工具<span>1</span></a></li>
 		
@@ -351,17 +405,19 @@
 		<h4>标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/virtualbox/">virtualbox<span>1</span></a></li>
-		
 			<li><a href="/tags/Git/">Git<span>1</span></a></li>
+		
+			<li><a href="/tags/virtualbox/">virtualbox<span>1</span></a></li>
 		
 			<li><a href="/tags/日记/">日记<span>1</span></a></li>
 		
 			<li><a href="/tags/Spring/">Spring<span>1</span></a></li>
 		
-			<li><a href="/tags/java-se/">java se<span>1</span></a></li>
+			<li><a href="/tags/SQL/">SQL<span>1</span></a></li>
 		
 			<li><a href="/tags/Redis/">Redis<span>1</span></a></li>
+		
+			<li><a href="/tags/java-se/">java se<span>2</span></a></li>
 		
 		 
 		</ul>
@@ -375,6 +431,14 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2015/11/19/PL-SQL-Developer使用Oracle-instant-client配置/"  title="PL/SQL Developer配置Instant client." ><i class="fa fa-file-o"></i>PL/SQL Developer使用Oracle in...</a>
+      </li>
+    
+      <li>
+        <a href="/2015/11/16/java基础-lambda/"  title="Java8新特性是Lambda表达式." ><i class="fa fa-file-o"></i>Java基础(lambda)...</a>
+      </li>
+    
+      <li>
         <a href="/2015/11/12/java基础-泛型/"  title="Java 泛型的用法." ><i class="fa fa-file-o"></i>java基础----泛型...</a>
       </li>
     
@@ -384,14 +448,6 @@
     
       <li>
         <a href="/2015/11/04/virtualbox复制虚拟机/"  title="如何复制Virtualbox中的虚拟机." ><i class="fa fa-file-o"></i>virtualbox复制虚拟机...</a>
-      </li>
-    
-      <li>
-        <a href="/2015/11/03/Redis-学习笔记/" ><i class="fa fa-file-o"></i>Redis 学习笔记...</a>
-      </li>
-    
-      <li>
-        <a href="/2015/10/29/Git-常用命令及使用说明/"  title="Git简单命令笔记." ><i class="fa fa-file-o"></i>Git 常用命令及使用说明...</a>
       </li>
     
   </ul>

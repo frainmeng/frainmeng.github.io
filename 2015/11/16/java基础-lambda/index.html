@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java基础(lambda) | Frainmeng&#39;s Blog</title>
+  <meta name="author" content="Frain Meng">
+  
+  <meta name="description" content="Java8新特性是Lambda表达式.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Java基础(lambda)"/>
+  <meta property="og:site_name" content="Frainmeng&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Frainmeng&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> Java基础(lambda)</h1>
+			<!-- 访问量 -->
+			<span id="busuanzi_container_site_pv">
+				Total pv：<span id="busuanzi_value_site_pv"></span>
+		    </span>
+		    <span id="busuanzi_container_site_uv">
+				，   Total uv：<span id="busuanzi_value_site_uv"></span>
+		    </span>
+			<span id="busuanzi_container_page_pv">
+				，   Total page pv：<span id="busuanzi_value_page_pv"></span>
+			</span>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> <p>Java8新特性是Lambda表达式.</p>
+			
+		 </div> <!-- alert -->
+	  		
+	  
+	  <h3 id="简介">简介</h3><p>Lambda表达式是Java SE 8 非常重要的新特性。对于单方法的接口，Lambda表达式提供一种干净简洁的代码实现方式。同时，Lambda表达式改良了<code>Collection</code>类包，使得迭代，filter和extract data from a Collection更简单。并且，其并行的特性在多核环境中性能得到很大提高。</p>
+<a id="more"></a>
+<h3 id="使用">使用</h3><h4 id="语法">语法</h4><p><code>(parameters) -&gt; {expression body}</code><br>说明：</p>
+<ol>
+<li>参数类型声明是可选的，编译器可以根据参数的值推断出来。</li>
+<li>只有一个参数时，参数两边的括号可以省略。单多个参数时还是必须要用括号括起来的</li>
+<li>当<code>expression body</code>中只有一个语句时,外面的花括号可以省略</li>
+<li>当<code>expression body</code>只有一个表达式时，并且该表达式返回一个值，该值就是Lambda的需要返回值时，可以省略<code>return</code>语句，但是这种情况下不能省略花括号。</li>
+</ol>
+<h4 id="示例">示例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Test for Lambda</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">package</span> com.kalven.lambda.mytest;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * <span class="doctag">@author</span> kalven.meng</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaTest</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> String name = <span class="string">"Poly"</span>;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> args</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="keyword">new</span> LambdaTest().rename((test,newname) -&gt; &#123;</span><br><span class="line">            String oldName = test.getName();</span><br><span class="line">            test.setName(newname);</span><br><span class="line">            <span class="keyword">return</span> oldName;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * rename </span><br><span class="line">     * <span class="doctag">@param</span> person</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rename</span><span class="params">( Person person)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        System.out.println(<span class="string">"old name:"</span> + person.rename(<span class="keyword">this</span>, <span class="string">"Jhon"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@return</span> the name</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> name the name to set</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * for test</span><br><span class="line"> * </span><br><span class="line"> * <span class="doctag">@author</span> kalven.meng</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * set name to newname and return the old name</span><br><span class="line">     * <span class="doctag">@param</span> test TestObj</span><br><span class="line">     * <span class="doctag">@param</span> newName new name</span><br><span class="line">     * <span class="doctag">@return</span> old name</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function">String <span class="title">rename</span><span class="params">(LambdaTest test, String newName)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="java-util-function包"><code>java.util.function</code>包</h4><p>该包提供了很大<code>functional interface</code>的标准接口</p>
+<ol>
+<li>Predicate：对参数进行断言；接收T对象并返回boolean</li>
+<li>Consumer：在给定参数上执行某操作；接收T对象，不返回值</li>
+<li>Function：接受一个参数并产生结果的函数；接收T对象，返回R对象</li>
+<li>Supplier：返回一个T的实例（如工厂）；提供T对象（例如工厂），不接收值</li>
+<li>UnaryOperator：表示在同一类型的操作数的操作后，产生相同类型的结果作为操作数；接收T对象，返回T对象</li>
+<li>BinaryOperator：A binary operator from (T, T) -&gt; T；接收两个T对象，返回T对象</li>
+</ol>
+<h4 id="对Collection_类的改进">对Collection 类的改进</h4><p>先提供一个测试用的类Person.java：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * </span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">package</span> com.kalven.lambda.mytest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * <span class="doctag">@author</span> kalven.meng</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@return</span> the name</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> name the name to set</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@return</span> the age</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> age the age to set</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 生成测试list</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Person&gt; <span class="title">createShorPersonList</span><span class="params">()</span></span>&#123;</span><br><span class="line">        List&lt;Person&gt; persons = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</span><br><span class="line">        persons.add(<span class="keyword">new</span> Person(<span class="string">"Lily"</span>, <span class="number">20</span>));</span><br><span class="line">        persons.add(<span class="keyword">new</span> Person(<span class="string">"Lucy"</span>, <span class="number">24</span>));</span><br><span class="line">        persons.add(<span class="keyword">new</span> Person(<span class="string">"Jack"</span>, <span class="number">28</span>));</span><br><span class="line">        persons.add(<span class="keyword">new</span> Person(<span class="string">"Jhon"</span>, <span class="number">12</span>));</span><br><span class="line">        <span class="keyword">return</span> persons;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 获取person信息</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getInfo</span><span class="params">()</span></span>&#123;</span><br><span class="line">        StringBuilder info = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        info.append(<span class="string">"Name:"</span>).append(<span class="keyword">this</span>.getName()).append(<span class="string">",age:"</span>).append(<span class="keyword">this</span>.getAge());</span><br><span class="line">        <span class="keyword">return</span> info.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p><code>Looping</code>：<code>Collection</code>的遍历</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">    List&lt;Person&gt; persons = Person.createShorPersonList();</span><br><span class="line">    <span class="comment">//遍历person，打印person信息</span></span><br><span class="line">    persons.forEach(p -&gt; System.out.println(p.getInfo()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Chaining and Filters</code>：<code>Collection</code>的链式操作和过滤</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">    List&lt;Person&gt; persons = Person.createShorPersonList();</span><br><span class="line">    <span class="comment">//打印age在20和30之间的person</span></span><br><span class="line">    persons.stream().filter(p -&gt; p.getAge()&gt;=<span class="number">20</span>&amp;&amp;p.getAge()&lt;=<span class="number">30</span>)</span><br><span class="line">    .forEach(p -&gt; System.out.println(p.getInfo()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Mutation</code>和<code>Results</code>：过滤并生成新的<code>Collection</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">    List&lt;Person&gt; persons = Person.createShorPersonList();</span><br><span class="line">    <span class="comment">//过滤后生成新的list</span></span><br><span class="line">    List&lt;Person&gt; personsNew = persons.stream().</span><br><span class="line">            filter(p -&gt; p.getAge()&gt;=<span class="number">20</span>&amp;&amp;p.getAge()&lt;=<span class="number">30</span>).collect(Collectors.toList());</span><br><span class="line">    personsNew.forEach(p -&gt; System.out.println(p.getInfo()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>map</code>计算</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">    List&lt;Person&gt; persons = Person.createShorPersonList();</span><br><span class="line">    <span class="comment">//计算总年龄和平均年龄</span></span><br><span class="line">    <span class="keyword">int</span> totalAge = persons.stream().</span><br><span class="line">            filter(p -&gt; p.getAge()&gt;=<span class="number">20</span>&amp;&amp;p.getAge()&lt;=<span class="number">30</span>)</span><br><span class="line">            .mapToInt(p -&gt; p.getAge()).sum();</span><br><span class="line">    OptionalDouble averageAge = persons.stream().</span><br><span class="line">            filter(p -&gt; p.getAge()&gt;=<span class="number">20</span>&amp;&amp;p.getAge()&lt;=<span class="number">30</span>)</span><br><span class="line">            .mapToInt(p -&gt; p.getAge()).average();</span><br><span class="line">    System.out.println(<span class="string">"totalAge:"</span> + totalAge + <span class="string">" ,averageAge:"</span> + averageAge.getAsDouble());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="扩展">扩展</h3><p>参考：</p>
+<ol>
+<li><a href="http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/Lambda-QuickStart/index.html" title="Lambda 表达式入门教程" target="_blank" rel="external">Java SE 8: Lambda Quick Start</a></li>
+<li><a href="http://www.tutorialspoint.com/java8/java8_lambda_expressions.htm" title="Lambda表达式教程" target="_blank" rel="external">Java 8 - Lambda Expressions</a><br>表示在同一类型的操作数的操作后，产生相同类型的结果作为操作数。</li>
+</ol>
+	 
+	  
+	  <!-- declaration -->
+	  
+<div class="declaration">
+	<strong style="color:red;text-shadow: rgb(212, 106, 64) 5px 3px 3px;">Declaration :  </strong><br>
+	<strong style="color:rgb(212, 106, 64);">Title :  </strong><a href="/2015/11/16/java基础-lambda/">Java基础(lambda)</a><br>
+	<strong style="color:rgb(212, 106, 64);">Url   :  </strong><a href="/2015/11/16/java基础-lambda/">http://frainmeng.github.io/2015/11/16/java基础-lambda/</a><br>
+	转载请注明出处<a href="http://frainmeng.github.io">Frainmeng's Blog</a>，本博客采用<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/deed.zh">署名-非商业性使用-相同方式共享协议v2.5</a>
+</div>
+
+ 
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/11/19/PL-SQL-Developer使用Oracle-instant-client配置/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一篇</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/11/12/java基础-泛型/" class="alignright next">下一篇<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<!-- 多说热评文章 start -->
+	
+<section id="recommend">
+  <h2 class="title">文章推荐</h2>
+  
+  	 <ul  class="ds-top-threads" data-range="monthly" data-num-items="5"></ul> 
+  
+</section>
+
+	<!-- 多说热评文章 end -->
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2015/11/16/java基础-lambda/" data-title="Java基础(lambda)" data-url="http://frainmeng.github.io/2015/11/16/java基础-lambda/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2015-11-16 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/java/">java<span>3</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/java-se/">java se<span>2</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#简介"><span class="toc-article-text">简介</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#使用"><span class="toc-article-text">使用</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#语法"><span class="toc-article-text">语法</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#示例"><span class="toc-article-text">示例</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#java-util-function包"><span class="toc-article-text">java.util.function包</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#对Collection_类的改进"><span class="toc-article-text">对Collection 类的改进</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#扩展"><span class="toc-article-text">扩展</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'frainmeng' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2015 Frain Meng
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

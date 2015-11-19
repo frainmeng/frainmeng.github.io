@@ -122,10 +122,10 @@
 		 </div> <!-- alert -->
 	  		
 	  
-	  <p>在Java的类中’java.util.concurrent.ForkJoinTask<v><br>‘偶然看到这样一段代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ForkJoinTask&lt;T&gt; <span class="title">adapt</span><span class="params">(Callable&lt;? extends T&gt; callable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AdaptedCallable&lt;T&gt;(callable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></v></p>
+	  <p>在Java的类中<code>java.util.concurrent.ForkJoinTask</code>偶然看到这样一段代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">ForkJoinTask&lt;T&gt; <span class="title">adapt</span><span class="params">(Callable&lt;? extends T&gt; callable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AdaptedCallable&lt;T&gt;(callable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其中<code>&lt;T&gt; ForkJoinTask&lt;T&gt;</code>这个泛型让我无法理解，以前从没有遇见过这样使用泛型的，那就查吧。</p>
 <a id="more"></a>
-<h3 id="常见的几种泛型表示">常见的几种泛型表示</h3><p>以为不知道是不是还有其他的表示，所以这里就说他们是常见的吧</p>
+<h3 id="常见的几种泛型表示">常见的几种泛型表示</h3><p>因为不知道是不是还有其他的表示，所以这里就说他们是常见的吧</p>
 <ol>
 <li><p><code>&lt;T&gt;,&lt;K&gt;,&lt;V&gt;,&lt;E&gt;</code>等<br>这种用法就是在&lt;&gt;中指定泛型，其中的字母如T(type)、K(key)、V(value)、E(element)）等只是用一个标识符，你也可以用A、B、C等其他的字母代替<br>如果有多个类型需要泛型的话就用一个<code>,</code>分隔开就行了比如我们常用的<code>Map&lt;K,V&gt;</code><br>例如:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> &lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    T list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -138,21 +138,23 @@
 </ol>
 <h3 id="自定义泛型">自定义泛型</h3><p>泛型的定义我见到的是有三种种：泛型类、泛型接口和泛型方法</p>
 <ol>
-<li><p>泛型类<br>就是在定义类的使用泛型<br>例如：</p>
+<li><p>泛型类<br>将泛型应用于类<br>例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TT</span> &lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> K key;</span><br><span class="line">    <span class="keyword">private</span> V value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TT</span><span class="params">(K key,V value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>K,V</code>的作用范围是整个类</p>
 </li>
 <li><p>泛型接口<br>将泛型应用于接口<br>例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Generator</span>&lt;<span class="title">T</span>&gt; </span>&#123;  </span><br><span class="line">    <span class="function">T <span class="title">next</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样泛型<code>T</code>的作用范围是整个类</p>
 </li>
 <li><p>泛型方法<br>将泛型应用于方法<br>例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;E&gt; <span class="function">E <span class="title">getEle</span><span class="params">(List&lt;E&gt; list)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> list.get(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里可以看到在返回类型E 前面还有个<e> 这个的作用表示E这个泛型的作用范围限定在这个方法。</e></p>
+<p>这里可以看到在返回类型E 前面还有个<code>&lt;E&gt;</code>，这个的作用表示E这个泛型的作用范围限定在这个方法。如果是在泛型类内部定义泛型方法时要特别注意这点，这样使用可以防止于类中的泛型冲突。</p>
 </li>
 </ol>
 <h3 id="补充">补充</h3><p>在使用泛型的时候，我们有时候可能想要实例化一个泛型的数组，向下面这种<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TT</span> &lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    Class&lt;T&gt; type;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> length;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TT</span><span class="params">(<span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.length = length;</span><br><span class="line">        T[] arrays = <span class="keyword">new</span> T[length];<span class="comment">//这里编译报错不能通过；</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>针对这种情况可以使用下面这个方式来实现;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TT</span> &lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    Class&lt;T&gt; type;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> length;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TT</span><span class="params">(<span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.length = length;</span><br><span class="line">        T[] arrays = (T[]) Array.newInstance(type, length);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里用到了<code>java.lang.reflect.Array</code>这个类，这个类是java的反射包的类，它支持动态类型。</p>
-<h3 id="扩展">扩展</h3><p>如果想了解更多关于java的泛型，可以看看这个人的一边博客，写的很详细：<br><a href="http://jiangzhengjun.iteye.com/blog/540535" target="_blank" rel="external">泛型 —— Java编程思想 </a></p>
+<p>这里用到了<code>java.lang.reflect.Array</code>这个类，这个类是java的反射包的类，它支持动态类型，即动态生成数组。</p>
+<h3 id="扩展">扩展</h3><p>如果想了解更多关于java的泛型，可以看看这个人的一篇博客，写的很详细：<br><a href="http://jiangzhengjun.iteye.com/blog/540535" target="_blank" rel="external">泛型 —— Java编程思想 </a></p>
 	 
 	  
 	  <!-- declaration -->
@@ -172,9 +174,9 @@
 	<div class="pagination">
 <ul class="pagination">
 	 
-		
-          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一篇</a></li>
-        
+				
+    	<li class="prev"><a href="/2015/11/16/java基础-lambda/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一篇</a></li>
+  		
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
@@ -230,7 +232,7 @@
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/java/">java<span>2</span></a></li>
+    <li><a href="/categories/java/">java<span>3</span></a></li>
   </li>
 
     </ul>
@@ -243,7 +245,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/java-se/">java se<span>1</span></a></li>
+  <li><a href="/tags/java-se/">java se<span>2</span></a></li>
     </ul>
 	</div>
 		
