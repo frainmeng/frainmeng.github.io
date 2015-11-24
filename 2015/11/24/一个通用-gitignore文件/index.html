@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>一个通用.gitignore文件 | Frainmeng&#39;s Blog</title>
+  <meta name="author" content="Frain Meng">
+  
+  <meta name="description" content="一个git仓库通用的.gitignore文件.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="一个通用.gitignore文件"/>
+  <meta property="og:site_name" content="Frainmeng&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Frainmeng&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> 一个通用.gitignore文件</h1>
+			<!-- 访问量 -->
+			<span id="busuanzi_container_site_pv">
+				Total pv：<span id="busuanzi_value_site_pv"></span>
+		    </span>
+		    <span id="busuanzi_container_site_uv">
+				，   Total uv：<span id="busuanzi_value_site_uv"></span>
+		    </span>
+			<span id="busuanzi_container_page_pv">
+				，   Total page pv：<span id="busuanzi_value_page_pv"></span>
+			</span>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> <p>一个git仓库通用的.gitignore文件.</p>
+			
+		 </div> <!-- alert -->
+	  		
+	  
+	  <h3 id="简介">简介</h3><p>在eclipse中创建maven项目时会有很多的项目描述文件及编译文件，如<code>.settings</code>、<code>.classpath</code>、<code>.project</code>、<code>target</code>等，但是在push时不希望将这些文件push到Git远程仓库，那么这时可以使用<code>.gitignore</code>文件进行配置。</p>
+<a id="more"></a>
+<h3 id="使用">使用</h3><p>只需要在项目的根目录下创建一个<code>.gitignore</code>文件，将下面的文件内容复制进去即可，在win下是无法直接创建<code>.gitignore</code>文件，可以使用编辑器（如editplus、sublime text等，不建议使用记事本编辑）的另存为保存为<code>.gitignore</code>。</p>
+<h3 id="文件内容">文件内容</h3><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## .gitignore for Grails 1.2 and 1.3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># .gitignore for maven </span></span><br><span class="line">target/</span><br><span class="line"><span class="keyword">*</span>.releaseBackup</span><br><span class="line"></span><br><span class="line"><span class="comment"># web application files</span></span><br><span class="line"><span class="comment">#/web-app/WEB-INF</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># IDE support files</span></span><br><span class="line">/.classpath</span><br><span class="line">/.launch</span><br><span class="line">/.project</span><br><span class="line">/.settings</span><br><span class="line">/<span class="keyword">*</span>.launch</span><br><span class="line">/<span class="keyword">*</span>.tmproj</span><br><span class="line">/ivy<span class="keyword">*</span></span><br><span class="line">/eclipse</span><br><span class="line"> </span><br><span class="line"><span class="comment"># default HSQL database files for production mode</span></span><br><span class="line">/prodDb.<span class="keyword">*</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># general HSQL database files</span></span><br><span class="line"><span class="keyword">*</span>Db.properties</span><br><span class="line"><span class="keyword">*</span>Db.script</span><br><span class="line"> </span><br><span class="line"><span class="comment"># logs</span></span><br><span class="line">/stacktrace.log</span><br><span class="line">/test/reports</span><br><span class="line">/logs</span><br><span class="line"><span class="keyword">*</span>.log</span><br><span class="line"><span class="keyword">*</span>.log.<span class="keyword">*</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># project release file</span></span><br><span class="line">/<span class="keyword">*</span>.war</span><br><span class="line"> </span><br><span class="line"><span class="comment"># plugin release file</span></span><br><span class="line">/<span class="keyword">*</span>.zip</span><br><span class="line">/<span class="keyword">*</span>.zip.sha1</span><br><span class="line"> </span><br><span class="line"><span class="comment"># older plugin install locations</span></span><br><span class="line">/plugins</span><br><span class="line">/web-app/plugins</span><br><span class="line">/web-app/WEB-INF/classes</span><br><span class="line"> </span><br><span class="line"><span class="comment"># "temporary" build files</span></span><br><span class="line">target/</span><br><span class="line">out/</span><br><span class="line">build/</span><br><span class="line"> </span><br><span class="line"><span class="comment"># other</span></span><br><span class="line"><span class="keyword">*</span>.iws</span><br><span class="line"> </span><br><span class="line"><span class="comment">#.gitignore for java</span></span><br><span class="line"><span class="keyword">*</span>.class</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Package Files #</span></span><br><span class="line"><span class="keyword">*</span>.jar</span><br><span class="line"><span class="keyword">*</span>.war</span><br><span class="line"><span class="keyword">*</span>.ear</span><br><span class="line"> </span><br><span class="line"><span class="comment">## .gitignore for eclipse</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">*</span>.pydevproject</span><br><span class="line">.project</span><br><span class="line">.metadata</span><br><span class="line">bin/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">tmp/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">tmp/<span class="keyword">*</span><span class="keyword">*</span>/<span class="keyword">*</span></span><br><span class="line"><span class="keyword">*</span>.tmp</span><br><span class="line"><span class="keyword">*</span>.bak</span><br><span class="line"><span class="keyword">*</span>.swp</span><br><span class="line"><span class="keyword">*</span>~.nib</span><br><span class="line">local.properties</span><br><span class="line">.classpath</span><br><span class="line">.settings/</span><br><span class="line">.loadpath</span><br><span class="line"> </span><br><span class="line"><span class="comment"># External tool builders</span></span><br><span class="line">.externalToolBuilders/</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Locally stored "Eclipse launch configurations"</span></span><br><span class="line"><span class="keyword">*</span>.launch</span><br><span class="line"> </span><br><span class="line"><span class="comment"># CDT-specific</span></span><br><span class="line">.cproject</span><br><span class="line"> </span><br><span class="line"><span class="comment"># PDT-specific</span></span><br><span class="line">.buildpath</span><br><span class="line"> </span><br><span class="line"><span class="comment">## .gitignore for intellij</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">*</span>.iml</span><br><span class="line"><span class="keyword">*</span>.ipr</span><br><span class="line"><span class="keyword">*</span>.iws</span><br><span class="line">.idea/</span><br><span class="line"> </span><br><span class="line"><span class="comment">## .gitignore for linux</span></span><br><span class="line">.<span class="keyword">*</span></span><br><span class="line">!.gitignore</span><br><span class="line"><span class="keyword">*</span>~</span><br><span class="line"> </span><br><span class="line"><span class="comment">## .gitignore for windows</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Windows image file caches</span></span><br><span class="line">Thumbs.db</span><br><span class="line">ehthumbs.db</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Folder config file</span></span><br><span class="line">Desktop.ini</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Recycle Bin used on file shares</span></span><br><span class="line">$RECYCLE.BIN/</span><br><span class="line"> </span><br><span class="line"><span class="comment">## .gitignore for mac os x</span></span><br><span class="line"> </span><br><span class="line">.DS_Store</span><br><span class="line">.AppleDouble</span><br><span class="line">.LSOverride</span><br><span class="line">Icon</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># Thumbnails</span></span><br><span class="line">._<span class="keyword">*</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Files that might appear on external disk</span></span><br><span class="line">.Spotlight-V100</span><br><span class="line">.Trashes</span><br><span class="line"></span><br><span class="line"><span class="comment">## hack for graddle wrapper</span></span><br><span class="line">!wrapper/<span class="keyword">*</span>.jar</span><br><span class="line">!<span class="keyword">*</span><span class="keyword">*</span>/wrapper/<span class="keyword">*</span>.jar</span><br></pre></td></tr></table></figure>
+	 
+	  
+	  <!-- declaration -->
+	  
+<div class="declaration">
+	<strong style="color:red;text-shadow: rgb(212, 106, 64) 5px 3px 3px;">Declaration :  </strong><br>
+	<strong style="color:rgb(212, 106, 64);">Title :  </strong><a href="/2015/11/24/一个通用-gitignore文件/">一个通用.gitignore文件</a><br>
+	<strong style="color:rgb(212, 106, 64);">Url   :  </strong><a href="/2015/11/24/一个通用-gitignore文件/">http://frainmeng.github.io/2015/11/24/一个通用-gitignore文件/</a><br>
+	转载请注明出处<a href="http://frainmeng.github.io">Frainmeng's Blog</a>，本博客采用<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/deed.zh">署名-非商业性使用-相同方式共享协议v2.5</a>
+</div>
+
+ 
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一篇</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/11/20/Mybatis使用文档/" class="alignright next">下一篇<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<!-- 多说热评文章 start -->
+	
+<section id="recommend">
+  <h2 class="title">文章推荐</h2>
+  
+  	 <ul  class="ds-top-threads" data-range="monthly" data-num-items="5"></ul> 
+  
+</section>
+
+	<!-- 多说热评文章 end -->
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2015/11/24/一个通用-gitignore文件/" data-title="一个通用.gitignore文件" data-url="http://frainmeng.github.io/2015/11/24/一个通用-gitignore文件/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2015-11-24 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/项目管理工具/">项目管理工具<span>2</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Git/">Git<span>2</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#简介"><span class="toc-article-text">简介</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#使用"><span class="toc-article-text">使用</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#文件内容"><span class="toc-article-text">文件内容</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'frainmeng' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2015 Frain Meng
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
